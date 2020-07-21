@@ -3,27 +3,27 @@
 */
 function encryption(text) {
     var trimmedString = text.replace(/ /g,'');
-    console.log(trimmedString);
     var textLength = trimmedString.length;
-    var lengthSquareRoot = Math.sqrt(textLength);
-
+    var textLengthSquareRoot = Math.sqrt(trimmedString.length);
     var rows, columns;
+    let encryptedText = "";
+    var floorTextLengthSquareRoot = Math.floor(textLengthSquareRoot);
+    var ceilTextLengthSquareRoot = Math.ceil(textLengthSquareRoot)
 
-    if(Math.floor(lengthSquareRoot)===Math.ceil(lengthSquareRoot)){
-        rows = columns = lengthSquareRoot;
+    if(floorTextLengthSquareRoot === ceilTextLengthSquareRoot){
+        rows = columns = textLengthSquareRoot;
     }
     else{
-        rows = Math.floor(lengthSquareRoot);
-        columns = Math.ceil(lengthSquareRoot);
+        rows = floorTextLengthSquareRoot;
+        columns = ceilTextLengthSquareRoot;
     }
 
-    let result = "";
     for(let i = 0; i < columns; i++){
         for(let j = i; j < textLength;){
-            result+=trimmedString[j];
-            j+=columns;
+            encryptedText += trimmedString[j];
+            j += columns;
         }
-        result+=" ";
+        encryptedText += " ";
     }
-    return result;
+    return encryptedText;
 }

@@ -1,10 +1,14 @@
 /*
   Problem Statement: https://www.hackerrank.com/challenges/almost-sorted/problem
 */
+function swap(arr, firstConflictingIndex, lastConflictingIndex){
+    [arr[firstConflictingIndex], arr[lastConflictingIndex]] = [arr[lastConflictingIndex], arr[firstConflictingIndex]];
+
+}
 
 function isSorted(arr) {
-    for(var iterator = 0; iterator < arr.length-1; iterator++) {
-        if(arr[iterator] > arr[iterator+1]) {
+    for(var i = 0; i < arr.length - 1; i++) {
+        if(arr[i] > arr[i + 1]) {
             return false;
         }
     }
@@ -14,48 +18,53 @@ function isSorted(arr) {
 // Complete the almostSorted function below.
 function almostSorted(arr) {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+    var firstConflictingIndex = -1, lastConflictingIndex = -1;
+    var subarr;
+    var firstReverseIndex;
+    var lastReverseIndex;
 
     if(isSorted(arr)) {
         ws.write("yes" + "\n");
         return;
     }
 
-    var conflictingIndex1 = -1, conflictingIndex2 = -1;
-
-    for(var iterator = 0; iterator < arr.length; iterator++){
-        if(iterator!=arr.length-1 && arr[iterator] > arr[iterator+1] && conflictingIndex1===-1){
-            conflictingIndex1 = iterator;
+    for(var i = 0; i < arr.length; i++){
+        if(i != arr.length - 1 && arr[i] > arr[i + 1] && firstConflictingIndex === -1){
+            firstConflictingIndex = i;
 
         }
-        if(iterator>0 && arr[iterator] < arr[iterator-1]){
-            conflictingIndex2 = iterator;
+        if(i > 0 && arr[i] < arr[i - 1]){
+            lastConflictingIndex = i;
         }
     }
-    [arr[conflictingIndex1],arr[conflictingIndex2]]=[arr[conflictingIndex2],arr[conflictingIndex1]];
+
+    swap(arr, firstConflictingIndex, lastConflictingIndex);
 
     if(isSorted(arr)){
         ws.write("yes" + "\n");
-        conflictingIndex1+=1;
-        conflictingIndex2+=1;
-        ws.write("swap " + conflictingIndex1 + " " + conflictingIndex2 + "\n");
+        firstConflictingIndex += 1;
+        lastConflictingIndex += 1;
+        ws.write("swap " + firstConflictingIndex + " " + lastConflictingIndex + "\n");
         return;
     }
 
-    [arr[conflictingIndex1],arr[conflictingIndex2]]=[arr[conflictingIndex2],arr[conflictingIndex1]];
+    swap(arr, firstConflictingIndex, lastConflictingIndex);
 
-    var subarr = arr.slice(conflictingIndex1, conflictingIndex2+1).reverse();
-    var reverseIndex1 = conflictingIndex1, reverseIndex2 = conflictingIndex2;
-    while(reverseIndex1<=reverseIndex2){
-        [arr[reverseIndex1],arr[reverseIndex2]]=[arr[reverseIndex2],arr[reverseIndex1]];
-        reverseIndex1++;
-        reverseIndex2--;
+    subarr = arr.slice(firstConflictingIndex, lastConflictingIndex + 1).reverse();
+    firstReverseIndex = firstConflictingIndex;
+    lastReverseIndex = lastConflictingIndex;
+
+    while(firstReverseIndex <= lastReverseIndex){
+        swap(arr, firstReverseIndex, lastReverseIndex);
+        firstReverseIndex++;
+        lastReverseIndex--;
     }
 
     if(isSorted(subarr) && isSorted(arr)){
         ws.write("yes" + "\n");
-        conflictingIndex1+=1;
-        conflictingIndex2+=1;
-        ws.write("reverse " + conflictingIndex1 + " " + conflictingIndex2 + "\n");
+        firstConflictingIndex += 1;
+        lastConflictingIndex += 1;
+        ws.write("reverse " + firstConflictingIndex + " " + lastConflictingIndex + "\n");
         return;
     }
 
@@ -63,6 +72,4 @@ function almostSorted(arr) {
         ws.write("no" + "\n");
         return;
     }
-
-
 }

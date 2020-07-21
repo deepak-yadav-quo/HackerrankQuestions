@@ -1,7 +1,7 @@
 /*
   Problem Statement: https://www.hackerrank.com/challenges/the-time-in-words/problem
 */
-function timeInWords(h, m) {
+function timeInWords(hour, minutes) {
     var minutesInWords = [
         "half",
         "one",
@@ -50,30 +50,23 @@ function timeInWords(h, m) {
         "eleven"
     ];
 
-    if(m===0){
-        return hoursInWords[h%12]+" o' clock";
-    }
-
-    else if(m<=30){
-        if(m%15===0){
-            return minutesInWords[m%30]+" past "+hoursInWords[h%12];
-        }else{
-            if(m===1){
-                return minutesInWords[m]+" minute past "+hoursInWords[h%12];
-            }
-            return minutesInWords[m]+" minutes past "+hoursInWords[h%12];
+    if(minutes === 0) {
+        return hoursInWords[hour % 12] + " o' clock";
+    }else if(minutes <= 30) {
+        if(minutes % 15 === 0) {
+            return minutesInWords[minutes % 30] + " past " + hoursInWords[hour % 12];
+        }else if(minutes === 1) {
+                return minutesInWords[minutes] + " minute past " + hoursInWords[hour % 12];
+        }else {
+            return minutesInWords[minutes] + " minutes past " + hoursInWords[hour % 12];
+        }
+    }else {
+        if(minutes % 15 === 0) {
+            return minutesInWords[minutes % 30] + " to " + hoursInWords[(hour + 1) % 12];
+        }else if(60 - minutes === 1) {
+                return minutesInWords[60 - minutes] + " minute to " + hoursInWords[(hour + 1) % 12];
+        }else {
+            return minutesInWords[60 - minutes] + " minutes to " + hoursInWords[(hour + 1) % 12];
         }
     }
-
-    else{
-        if(m%15===0){
-            return minutesInWords[m%30]+" to "+hoursInWords[(h+1)%12];
-        }else{
-            if(60-m===1){
-                return minutesInWords[60-m]+" minute to "+hoursInWords[(h+1)%12];
-            }
-            return minutesInWords[60-m]+" minutes to "+hoursInWords[(h+1)%12];
-        }
-    }
-
 }

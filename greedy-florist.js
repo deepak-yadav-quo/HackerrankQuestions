@@ -3,21 +3,17 @@
 */
 function getMinimumCost(totalFriends, flowersCost) {
     let totalFlowers = flowersCost.length;
-
     let minimumCost = 0;
-    flowersCost = flowersCost.sort((a,b)=>(a-b));
+    flowersCost = flowersCost.sort((a,b)=>(a - b));
 
-    if(totalFlowers <= totalFriends ){
+    if(totalFlowers <= totalFriends ) {
         for(let costIndex in flowersCost){
             minimumCost += flowersCost[costIndex];
         }
-    }
-
-    else{
-        for(let costIndex in flowersCost){
+    }else {
+        for(let costIndex in flowersCost) {
             let quotient = Math.floor((costIndex)/totalFriends);
-            minimumCost += (quotient + 1)*flowersCost[(totalFlowers-1) - costIndex];
-            console.log(minimumCost);
+            minimumCost += (quotient + 1) * flowersCost[(totalFlowers - 1) - costIndex];
         }
     }
     return minimumCost;
