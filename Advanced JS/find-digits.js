@@ -3,7 +3,7 @@
 */
 function findDigits(num) {
     const totalUnitDigits = 10;
-    let digitsArr = new Array(totalUnitDigits).fill(0);
+    const digitsArr = new Array(totalUnitDigits).fill(0);
     let singleDigit = num;
     let result = 0;
     while(singleDigit != 0){

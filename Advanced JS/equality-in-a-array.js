@@ -6,16 +6,10 @@ function equalizeArray(arr) {
     let maxNumCount = Number.NEGATIVE_INFINITY;
 
     for(let i = 0; i < arr.length; i++){
-        if(!(arr[i] in numCount)){
-            numCount[arr[i]] = 1;
-        }else{
-            numCount[arr[i]]++;
-        }
+        numCount[arr[i]] = !(arr[i] in numCount) ? 1 : numCount[arr[i]] + 1;
     }
     for(let num in numCount){
-        if(maxNumCount < numCount[num]){
-            maxNumCount = numCount[num];
-        }
+        maxNumCount = maxNumCount < numCount[num] ? numCount[num] : maxNumCount;
     }
     return arr.length - maxNumCount;
 }

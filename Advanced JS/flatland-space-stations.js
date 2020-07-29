@@ -9,12 +9,12 @@ function flatlandSpaceStations(cities, spaceStations) {
 
     spaceStations.sort((a, b) => a - b);
     maxDistance = spaceStations[0];
-    lastCitySpaceStationDistance = (cities - 1) - spaceStations[spaceStations.length - 1];
+    lastCitySpaceStationDistance = cities - 1 - spaceStations[spaceStations.length - 1];
 
     for(let i = 1; i < spaceStations.length; i++){
         const distance = Math.floor((spaceStations[i] - spaceStations[i-1]) / 2);
         if(maxDistance < distance)
             maxDistance = distance;
     }
-    return (lastCitySpaceStationDistance < maxDistance) ? maxDistance : lastCitySpaceStationDistance;
+    return lastCitySpaceStationDistance < maxDistance ? maxDistance : lastCitySpaceStationDistance;
 }

@@ -3,7 +3,7 @@
 */
 function runningTime(arr) {
     let shiftsRequired = 0;
-    let sortedArray = [...arr];
+    const sortedArray = [...arr];
     sortedArray.sort((a, b) => a - b);
 
     if(arr === sortedArray) {

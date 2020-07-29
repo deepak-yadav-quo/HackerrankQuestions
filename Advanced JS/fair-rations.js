@@ -14,7 +14,7 @@ function fairRations(breadLoaves) {
     if(oddNoOfLoaves.length % 2 === 1)
         return "NO";
 
-    for(let i = 0; i < oddNoOfLoaves.length; i+=2){
+    for(let i = 0; i < oddNoOfLoaves.length; i += 2){
         minLoavesRequired += (oddNoOfLoaves[i+1] - oddNoOfLoaves[i]) * 2;
     }
     return minLoavesRequired;

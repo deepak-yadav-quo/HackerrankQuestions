@@ -8,7 +8,5 @@ function hackerrankInString(text) {
         if(text[i] === sequenceToCheck[j])
             j++;
     }
-    if(j === sequenceToCheck.length)
-        return "YES";
-    return "NO";
+    return j === sequenceToCheck.length ? "YES" : "NO";
 }
